@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
@@ -117,7 +118,18 @@ public class ESQueryState{
 	 */
 	private void buildQuery(SearchRequestBuilder searchReq, ParseResult info) {
 		String[] types = new String[info.getSources().size()];
-		for(int i=0; i<info.getSources().size(); i++) types[i] = info.getSources().get(i).getSource(); 
+		for(int i=0; i<info.getSources().size(); i++){ 
+			if(StringUtils.isNoneEmpty(info.getSources().get(i).getAlias())
+					&& info.getSources().get(i).getAlias().equalsIgnoreCase(info.getSources().get(i).getSource())
+					){
+				
+				types[i] = info.getSources().get(i).getAlias();
+			}
+			else{
+				
+				types[i] = info.getSources().get(i).getSource();
+			}
+		}
 		SearchRequestBuilder req = searchReq.setTypes(types);
 		
 		// add filters and aggregations

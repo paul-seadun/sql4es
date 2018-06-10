@@ -31,7 +31,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.shield.ShieldPlugin;
+//import org.elasticsearch.shield.ShieldPlugin;
 import org.elasticsearch.test.ESIntegTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,7 +105,7 @@ public class ESConnection implements Connection{
 			}
 			
 			Settings settings = settingsBuilder.build();
-			TransportClient client = TransportClient.builder().settings(settings).addPlugin(ShieldPlugin.class).build()
+			TransportClient client = TransportClient.builder().settings(settings)/*.addPlugin(ShieldPlugin.class)*/.build()
 				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
 			
 			// add additional hosts if set in URL query part

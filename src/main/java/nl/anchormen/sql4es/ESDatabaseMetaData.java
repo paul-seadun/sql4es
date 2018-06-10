@@ -765,7 +765,7 @@ public class ESDatabaseMetaData implements DatabaseMetaData{
 		tableNamePattern = cleanPattern(tableNamePattern);
 		
 		if(lookForTables){
-			if(Pattern.matches(tableNamePattern, (String)clientInfo.get(Utils.PROP_QUERY_CACHE_TABLE))){
+			if(clientInfo.containsKey(Utils.PROP_QUERY_CACHE_TABLE) && Pattern.matches(tableNamePattern, (String)clientInfo.get(Utils.PROP_QUERY_CACHE_TABLE))){
 				List<Object> row = result.getNewRow();
 				row.set(2, clientInfo.get(Utils.PROP_QUERY_CACHE_TABLE));
 				row.set(3, "GLOBAL TEMPORARY");
